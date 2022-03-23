@@ -7,7 +7,7 @@
 #include <string.h> // memcpy
 #include <string>
 
-namespace muduo
+namespace eff
 {
 namespace detail
 {
@@ -21,17 +21,16 @@ namespace detail
             FixedBuffer()
                 :   cur_(data_)
             {
-                setCookie(cookieStart);
+
             }
 
             ~FixedBuffer()
             {
-                setCookie(cookieEnd);
             }
 
             void append(const char * buf, size_t len)                         //将buf加到data_中
             {
-                if(implicit_cast<size_t>(avail()) > len)
+                if(static_cast<size_t>(avail()) > len)
                 {
                     memcpy(cur_, buf, len);
                     cur_ += len;
@@ -50,20 +49,16 @@ namespace detail
 
             //for GDB
             const char *debugString();
-            void setCookie(void (*cookie)()){ cookie_ = cookie; }     
+            // void setCookie(void (*cookie)()){ cookie_ = cookie; }     
 
             //for test
-            string toString() const { return string(data_, length()); }
+            std::string toString() const { return string(data_, length()); }
             //StringPiece toStringPiece() const { return StringPiece(data_, length()); }
 
         
         private:
             const char *end()const{ return data_ + sizeof data_; }
 
-            static void cookieStart();
-            static void cookieEnd();
-
-            void (*cookie_)();
             char data_[SIZE];
             char *cur_;
     };
@@ -74,7 +69,7 @@ class LogStream //: noncopyable
     typedef LogStream self;
     public:
 
-        typedef detail::FixedBuffer<detail::kSmallBuffer> Buffer;
+        typedef  detail::FixedBuffer<detail::kSmallBuffer> Buffer;
         self& operator<<(bool v)
         {
             buffer_.append(v ? "1" : "0", 1);
@@ -122,7 +117,7 @@ class LogStream //: noncopyable
             return operator<<(reinterpret_cast<const char*>(str));
         }
 
-        self& operator<<(const string& v)
+        self& operator<<(const std::string& v)
         {
             buffer_.append(v.c_str(), v.size());
             return *this;
@@ -174,10 +169,6 @@ inline LogStream& operator<<(LogStream & s, const Fmt& fmt)
     s.append(fmt.data(), fmt.length());
     return s;
 }
-
-string fomatSI(int64_t n);
-
-string formatIEC(int64_t n);
 
 }
 

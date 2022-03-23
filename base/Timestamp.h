@@ -4,9 +4,9 @@
 #include <string>
 #include <cstring>
 
-namespace muduo
+namespace eff
 {
-
+ 
 class Timestamp //:  // public muduo::copyable,
                     //public equality_comparable<Timestamp>
                     //public less_than_comparable<Timestamp>

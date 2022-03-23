@@ -2,20 +2,21 @@
 
 #include <pthread.h>
 
-namespace muduo
+namespace eff
 {
 
-class Condition : noncopyable
+class Condition //: noncopyable
 {
     public:
-        explicit Condition(MutexLock & mutex)
+        explicit Condition(std::mutex & mutex)
             :   mutex_(mutex)
         {
-            MCHECK(pthread_cond_init(&pcond_, NULL));
+            pthread_cond_init(&pcond_, NULL);
         }
 
+    
     private:
-        MutexLock & mutex_;
+        std::mutex & mutex_;
         pthread_cond_t pcond_;
 };
 

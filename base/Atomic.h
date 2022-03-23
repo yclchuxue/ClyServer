@@ -2,14 +2,13 @@
 #include <stdint.h>
 // #include <iostream>
 // using namespace std;
-namespace muduo
+namespace eff
 {
 
 namespace detail
 {
 
-template<typename T>
-class AtomicIntegerT //: noncopyable
+template<typename T> class AtomicIntegerT //: noncopyable
 {
     public:
         AtomicIntegerT()

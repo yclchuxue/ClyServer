@@ -6,13 +6,12 @@
 #include <stdio.h>
 #include <inttypes.h>
 
-using namespace muduo;
-using namespace std;
+using namespace eff; 
 
 static_assert(sizeof(Timestamp) == sizeof(int64_t),
                         "Timestamp shoud be same size as int64_t");
 
-string Timestamp::toString() const
+std::string Timestamp::toString() const
 {
     char buf[32] = {0};
     int64_t seconds = microSecondsSinceEpoch_ / kMicroSecondsPerSecond;
@@ -21,7 +20,7 @@ string Timestamp::toString() const
     return buf;
 }
 
-string Timestamp::toFormattedString(bool showMicroseconds) const
+std::string Timestamp::toFormattedString(bool showMicroseconds) const
 {
     char buf[64] = {0};
     time_t seconds = static_cast<time_t>(microSecondsSinceEpoch_ / kMicroSecondsPerSecond);

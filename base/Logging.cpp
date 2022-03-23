@@ -6,7 +6,7 @@
 
 #include <sstream>
 
-namespace muduo
+namespace eff
 {
 
 __thread char t_errnobuf[512];
@@ -82,9 +82,10 @@ void defaultFlush()
 
 Logger::OutputFunc g_output = defaultOutput;
 Logger::FlushFunc g_flush   = defaultFlush;
+}
 //TimeZone g_logTimeZone;
 
-using namespace muduo;
+using namespace eff;
 
 Logger::Impl::Impl(LogLevel level, int savedErrno, const SourceFile & file, int line)
     :   time_(Timestamp::now()),
@@ -199,4 +200,4 @@ void Logger::setFlush(FlushFunc flush)
 //     g_logTimeZone = tz;
 // }
 
-}
+ 

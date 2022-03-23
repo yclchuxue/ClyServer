@@ -8,8 +8,7 @@
 #include <assert.h>
 //#endif
 
-namespace muduo
-{
+
 using std::string;
 
 inline void memZero(void * p, size_t n)
@@ -36,6 +35,5 @@ inline To down_cast(From *f)
   return static_cast<To>(f);
 }
 
-}
 
 #endif

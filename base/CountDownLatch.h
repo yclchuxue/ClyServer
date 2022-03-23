@@ -1,7 +1,9 @@
+#ifndef BASE_COUNTDOWNLATCH_H
+#define BASE_COUNTDOWNLATCH_H
 #include <Condition.h>
 #include <mutex>
 
-namespace mudo
+namespace eff
 {
 class CountDownLatch //: noncopyable
 {
@@ -15,9 +17,11 @@ class CountDownLatch //: noncopyable
         int getCount() const;
 
     private:
-        mutable MutexLock mutex_;   
+        mutable std::mutex mutex_;   
         Condition condition;
         int count_;
 };
 
 }
+
+#endif
