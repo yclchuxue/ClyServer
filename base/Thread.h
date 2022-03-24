@@ -13,47 +13,7 @@
 namespace eff
 {
 
-namespace detail
-{
-// pid_t gettid()
-// {
-//     return static_cast<pid_t>(::syscall(SYS_gettid));
-// }
 
-class ThreadData
-{
-    public:
-        typedef std::function<void()> ThreadFunc;
-        ThreadData(ThreadFunc &func, std::string &name, std::promise<void>& p, pid_t tid)
-            :   func_(func),
-                name_(name),
-                p_(p),
-                tid_(&tid)
-        { }
-
-        
-
-
-        ThreadFunc func_;
-        std::string name_;
-        pid_t *tid_;
-        std::promise<void> &p_; 
-};
-
-void *runInThread(void *arg)
-{
-    ThreadData * td = (ThreadData *)arg;
-    *td->tid_ = ::syscall(SYS_gettid);
-    td->p_.set_value();
-    try{
-        td->func_();
-    }catch(const std::exception &e){
-        fprintf(stderr, "%s\n", e.what());
-        abort();
-    }
-    return NULL;
-}
-}
 
 class Thread //: noncopyable
 {
@@ -72,7 +32,7 @@ class Thread //: noncopyable
         const std::string & name() const {return name_; }
 
 
-        static int numCreated() { return numCreated_.load(); }
+        //static int numCreated() { return numCreated_.load(); }
 
         // static int numCreadted()
         // {
@@ -91,7 +51,7 @@ class Thread //: noncopyable
         //CountDownLatch lathc_;
         std::promise<void> p_;
 
-        static std::atomic<int> numCreated_;
+        //static std::atomic<int> numCreated_;
 
         //static AtomicInt32 numCreated_;
 };
