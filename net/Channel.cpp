@@ -4,12 +4,12 @@
 #include "PollPoller.h"
 #include <sstream>
 #include <poll.h>
-
-using namespace muduo;
-using namespace muduo::net;
+ 
+using namespace eff;
+using namespace eff::net;
 
 const int Channel::kNoneEvent = 0;
-const int Channel::kReadEvent = POLLERR | POLLPRI;
+const int Channel::kReadEvent = POLLIN;
 const int Channel::kWriteEvent = POLLOUT;
 
 Channel::Channel(EventLoop * loop, int fd__)
@@ -23,16 +23,19 @@ Channel::Channel(EventLoop * loop, int fd__)
         eventHandling_(false),
         addedToLoop_(false)
 {
+    LOG_DEBUG << "new channel";
 }
 
 Channel::~Channel()
 {
-    assert(!eventHandling_);
-    assert(!addedToLoop_);
-    if(loop_->isInLoopThread())
-    {
-        assert(!loop_->hasChannel(this));
-    }
+    // assert(!eventHandling_);
+    // assert(!addedToLoop_);
+    // if(loop_->isInLoopThread())
+    // {
+        LOG_DEBUG << "loop haschannel";
+        // assert(!loop_->hasChannel(this));
+    //}
+    LOG_DEBUG << "end ~channel";
 }
 
 void Channel::tie(const std::shared_ptr<void>& obj)
@@ -43,7 +46,7 @@ void Channel::tie(const std::shared_ptr<void>& obj)
 
 void Channel::remove()
 {
-    assert(isNoneEvent());
+    //assert(isNoneEvent());
     addedToLoop_ = false;
     loop_->removeChannel(this);
 }
@@ -56,18 +59,18 @@ void Channel::update()
 
 void Channel::handleEvent(Timestamp receiveTime)
 {
-    std::shared_ptr<void> guard;
-    if(tied_)
-    {
-        guard = tie_.lock();
-        if(guard)
-        {
-            handleEventWithGuard(receiveTime);
-        }
-    }else
-    {
+    // std::shared_ptr<void> guard;
+    // if(tied_)
+    // {
+    //     guard = tie_.lock();
+    //     if(guard)
+    //     {
+    //         handleEventWithGuard(receiveTime);
+    //     }
+    // }else
+    // {
         handleEventWithGuard(receiveTime);
-    }
+    //}
 }
 
 void Channel::handleEventWithGuard(Timestamp receiveTime)
@@ -97,7 +100,8 @@ void Channel::handleEventWithGuard(Timestamp receiveTime)
     }
 
     if(revents_ & (POLLIN | POLLPRI | POLLRDHUP))  //普通或优先级带数据可读
-    {                                              //高优先级数据可读
+    {                 
+                                             //高优先级数据可读
         if(readCallback_) readCallback_(receiveTime);          //发生挂起
     }
 
@@ -108,17 +112,17 @@ void Channel::handleEventWithGuard(Timestamp receiveTime)
     eventHandling_ = false;
 }
 
-string Channel::reventsToString() const 
+std::string Channel::reventsToString() const 
 {
     return eventsToString(fd_, revents_);
 }
 
-string Channel::eventsToString() const
+std::string Channel::eventsToString() const
 {
     return eventsToString(fd_, events_);
 }
 
-string Channel::eventsToString(int fd, int ev)
+std::string Channel::eventsToString(int fd, int ev)
 {
     std::ostringstream oss;
     oss << fd << ": ";

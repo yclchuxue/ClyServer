@@ -8,16 +8,12 @@
 
 #include <errno.h>
 
-
-using namespace muduo;
-using namespace muduo::net;
-
+using namespace eff;
+using namespace eff::net;
 
 void defaultConnectionCallback(const TcpConnectionPtr & conn)
 {
-    LOG_TRACE << conn->localAddress().toIpPort() << " -> "
-              << conn->peerAddress().toIpPort()  << " is "
-              << (conn->connected() ? "UP" : "DOWN");
+    LOG_TRACE  << (conn->connected() ? "UP" : "DOWN");
 }
 
 void defaultMessageCallback(const TcpConnectionPtr &,
@@ -28,7 +24,7 @@ void defaultMessageCallback(const TcpConnectionPtr &,
 }
 
 TcpConnection::TcpConnection(EventLoop * loop,
-                            const string& nameArg,
+                            const std::string& nameArg,
                             int sockfd,
                             const InetAddress& localAddr,
                             const InetAddress& peerAddr)
@@ -62,7 +58,7 @@ TcpConnection::~TcpConnection()
   LOG_DEBUG << "TcpConnection::dtor[" <<  name_ << "] at " << this
             << " fd=" << channel_->fd()
             << " state=" << stateToString();
-  assert(state_ == kDisconnected);
+  // assert(state_ == kDisconnected);
 }
 
 bool TcpConnection::getTcpInfo(struct tcp_info* tcpi) const
@@ -70,7 +66,7 @@ bool TcpConnection::getTcpInfo(struct tcp_info* tcpi) const
   return socket_->getTcpInfo(tcpi);
 }
 
-string TcpConnection::getTcpInfoString() const
+std::string TcpConnection::getTcpInfoString() const
 {
   char buf[1024];
   buf[0] = '\0';
@@ -329,14 +325,14 @@ void TcpConnection::connectEstablished()
 
 void TcpConnection::connectDestroyed()
 {
-  loop_->assertInLoopThread();
-  if (state_ == kConnected)
-  {
-    setState(kDisconnected);
-    channel_->disableAll();
+  //loop_->assertInLoopThread();
+  // if (state_ == kConnected)
+  // {
+  //   setState(kDisconnected);
+  //   channel_->disableAll();
 
-    connectionCallback_(shared_from_this());
-  }
+  //   connectionCallback_(shared_from_this());
+  // }
   channel_->remove();
 }
 
@@ -403,15 +399,15 @@ void TcpConnection::handleWrite()
 
 void TcpConnection::handleClose()
 {
-  loop_->assertInLoopThread();
-  LOG_TRACE << "fd = " << channel_->fd() << " state = " << stateToString();
-  assert(state_ == kConnected || state_ == kDisconnecting);
+  //loop_->assertInLoopThread();
+  //LOG_TRACE << "fd = " << channel_->fd() << " state = " << stateToString();
+  //assert(state_ == kConnected || state_ == kDisconnecting);
   // we don't close fd, leave it to dtor, so we can find leaks easily.
   setState(kDisconnected);
   channel_->disableAll();
 
   TcpConnectionPtr guardThis(shared_from_this());
-  connectionCallback_(guardThis);
+  // connectionCallback_(guardThis);
   // must be the last line
   closeCallback_(guardThis);
 }

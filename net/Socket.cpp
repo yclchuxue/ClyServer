@@ -1,14 +1,13 @@
 #include "Socket.h"
-#include "InetAddress.h"
 #include "SocketsOps.h"
 #include "../base/Logging.h"
-
+#include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #include <stdio.h>
 
-using namespace muduo;
-using namespace muduo::net;
+using namespace eff;
+using namespace eff::net;
 
 Socket::~Socket()
 {
@@ -50,7 +49,8 @@ bool Socket::getTcpInfoString(char* buf, int len) const
 
 void Socket::bindAddress(const InetAddress& addr)
 {
-  sockets::bindOrDie(sockfd_, addr.getSockAddr());
+  // struct sockaddr_in addr = addr_.getaddr();
+  sockets::bindOrDie(sockfd_, (struct sockaddr*)&(addr.addr_));
 }
 
 void Socket::listen()
@@ -60,14 +60,15 @@ void Socket::listen()
 
 int Socket::accept(InetAddress* peeraddr)
 {
-  struct sockaddr_in6 addr;
-  memZero(&addr, sizeof addr);
-  int connfd = sockets::accept(sockfd_, &addr);
-  if (connfd >= 0)
-  {
-    peeraddr->setSockAddrInet6(addr);
-  }
-  return connfd;
+    struct sockaddr_in addr;
+    memset(&addr, 0, sizeof addr);
+    int connfd = sockets::accept(sockfd_, &addr);
+    if (connfd >= 0)
+    {
+      LOG_DEBUG << "connfd = " << connfd;
+      peeraddr->setaddr(addr);
+    }
+    return connfd;
 }
 
 void Socket::shutdownWrite()

@@ -7,14 +7,13 @@
 #include <memory>
 #include <string>
 
-namespace muduo
+namespace eff
 {
 namespace net
 {
-
 class EventLoop;
 
-class Channel : noncopyable
+class Channel// : noncopyable
 {
     public:
         typedef std::function<void()> EventCallback;
@@ -97,7 +96,6 @@ class Channel : noncopyable
         EventCallback writeCallback_;
         EventCallback errorCallback_;
 };
-
 }
 }
 

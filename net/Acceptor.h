@@ -1,20 +1,23 @@
+#ifndef NET_ACCEPTOR_H
+#define NET_ACCEPTOR_H
 #include <functional>
 #include "Channel.h"
 #include "Socket.h"
+#include "InetAddress.h"
+ 
 
-namespace muduo
+namespace eff
 {
 namespace net
 {
 class EventLoop;
-class InetAddress;
-
-class Acceptor : noncopyable
+ 
+class Acceptor //: noncopyable
 {
     public:
         typedef std::function<void (int sockfd, const InetAddress&)> NewConnectionCallback;
 
-        Acceptor(EventLoop* loop, const InetAddress& listenAddr, bool reuseport);
+        Acceptor(EventLoop* loop, const InetAddress& listenAddr);
 
         ~Acceptor();
 
@@ -39,3 +42,5 @@ class Acceptor : noncopyable
 };
 }
 }
+
+#endif

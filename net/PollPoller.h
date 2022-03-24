@@ -10,7 +10,8 @@
 
 // #ifndef MUDUO_NET_POLLER_POLLPOLLER_H
 // #define MUDUO_NET_POLLER_POLLPOLLER_H
-
+#ifndef NET_POLLPOLLER_H
+#define NET_POLLPOLLER_H
 #include "../base/Timestamp.h"
 #include "Channel.h"
 
@@ -18,12 +19,14 @@
 #include <map>
 #include "EventLoop.h"
 
-struct pollfd;
+struct pollfd; 
 
-namespace muduo
+namespace eff
 {
 namespace net
-{
+{ 
+
+
 
 ///
 /// IO Multiplexing with poll(2).
@@ -45,7 +48,7 @@ class PollPoller //: public Poller
 
       bool hasChannel(Channel * channel) const 
       {
-            assertInLoopThread();
+            // assertInLoopThread();
             ChannelMap::const_iterator it =  channels_.find(channel->fd());
             return it != channels_.end() && it->second == channel;
       }
@@ -56,6 +59,7 @@ class PollPoller //: public Poller
                           ChannelList* activeChannels) const;
 
   typedef std::vector<struct pollfd> PollFdList;
+  
   PollFdList pollfds_;
 
   EventLoop* ownerLoop_;
@@ -65,6 +69,9 @@ class PollPoller //: public Poller
         ChannelMap channels_;
 };
 
-}  // namespace net
-}  // namespace muduo
+ 
 // #endif  // MUDUO_NET_POLLER_POLLPOLLER_H
+}
+}
+
+#endif

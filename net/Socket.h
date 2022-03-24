@@ -1,15 +1,13 @@
 #ifndef NET_SOCKET_H
 #define NET_SOCKET_H
 //#include "../base/noncopyable.h"
-
+#include "InetAddress.h"
 struct tcp_info;
 
-namespace muduo
+namespace eff
 {
 namespace net
 {
-class InetAddress;
-
 class Socket //: noncopyable
 {
     public:

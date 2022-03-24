@@ -4,8 +4,9 @@
 #include <functional>
 #include <memory>
 
-namespace muduo
+namespace eff
 {
+ 
 using std::placeholders::_1;
 using std::placeholders::_2;
 using std::placeholders::_3;
@@ -62,7 +63,5 @@ namespace net
     // }
                         
 }
-
-} // namespace muduo
-
+}
 #endif

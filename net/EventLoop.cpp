@@ -5,16 +5,15 @@
 #include <unistd.h>
 #include "PollPoller.h"
 
-using namespace muduo;
-using namespace muduo::net;
+using namespace eff;
+using namespace eff::net;
 
-
-namespace
-{
+// namespace
+// {
 
 __thread EventLoop * t_loopInThisThread = 0;
 
-const int kPollTimeMs = 10000;
+// const int kPollTimeMs = 10000;
 
 int createEventfd()
 {
@@ -27,46 +26,45 @@ int createEventfd()
     return evtfd;
 }
 
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-class IgnoreSigPipe
-{
- public:
-  IgnoreSigPipe()
-  {
-    ::signal(SIGPIPE, SIG_IGN);
-    // LOG_TRACE << "Ignore SIGPIPE";
-  }
-};
-#pragma GCC diagnostic error "-Wold-style-cast"
+// #pragma GCC diagnostic ignored "-Wold-style-cast"
+// class IgnoreSigPipe
+// {
+//  public:
+//   IgnoreSigPipe()
+//   {
+//     ::signal(SIGPIPE, SIG_IGN);
+//     // LOG_TRACE << "Ignore SIGPIPE";
+//   }
+// };
+// #pragma GCC diagnostic error "-Wold-style-cast"
 
-IgnoreSigPipe initObj;
+// IgnoreSigPipe initObj;
 
-}
-
+// }
 EventLoop::EventLoop()
     :   looping_(false),
         quit_(false),
         eventHandling_(false),
         iteration_(0),
         threadId_(syscall(SYS_gettid)),
+        callingPendingFunctors_(false),
+        wakeupFd_(createEventfd()),
+        wakeupChannel_(new Channel(this, wakeupFd_)),
         poller_(new PollPoller(this)),
-        //timerQueue_(new TimeQueue(this)),
-        // wakeupFd_(createEventfd()),
-        // wakeupChannel_(new Channel(this, wakeupFd_)),
         currentActiveChannel_(NULL)
 {
     LOG_TRACE << "Eventloop created " << this << " in thread " << threadId_;
-    if(t_loopInThisThread)
-    {
-        LOG_FATAL << "Another EventLoop " << t_loopInThisThread
-                  << " exists in this thread " << threadId_;
-    }else{
-        t_loopInThisThread = this;
-    }
+    // if(t_loopInThisThread)
+    // {
+    //     LOG_FATAL << "Another EventLoop " << t_loopInThisThread
+    //               << " exists in this thread " << threadId_;
+    // }else{
+    //     t_loopInThisThread = this;
+    // }
 
-    //wakeupChannel_->setReadCallback(std::bind(&EventLoop::handleRead, this));
+    wakeupChannel_->setReadCallback(std::bind(&EventLoop::handleRead, this));
 
-    //wakeupChannel_->enableReading();
+    wakeupChannel_->enableReading();
 }
 
 EventLoop::~EventLoop()
@@ -75,13 +73,16 @@ EventLoop::~EventLoop()
               << " destructs in thread " << syscall(SYS_gettid);
     wakeupChannel_->disableAll();
     wakeupChannel_->remove();
+    ::close(wakeupFd_);
     t_loopInThisThread = NULL;
 }
 
-EventLoop*EventLoop::getEventLoopOfCurrentThread()
-{
-    return t_loopInThisThread;
-}
+// EventLoop*EventLoop::getEventLoopOfCurrentThread()
+// {
+//     //return t_loopInThisThread;
+// }
+
+const int kPollTimeMs = 10000;
 
 void EventLoop::loop()
 {
@@ -89,17 +90,20 @@ void EventLoop::loop()
     assertInLoopThread();
     looping_ = true;
     quit_ = false;
+    LOG_DEBUG << "in loop";
     LOG_TRACE << "EventLoop " << this << " start looping";
-
+    //LOG_DEBUG << " loop";
     while(!quit_)
     {
         activeChannels_.clear();
         pollReturnTime_ = poller_->poll(kPollTimeMs, &activeChannels_);
-        ++iteration_;
-        if(Logger::logLevel() <= Logger::TRACE)
-        {
-            printActiveChannels();
-        }
+        //sleep(3);
+        LOG_DEBUG << activeChannels_.size();
+        // ++iteration_;
+        // if(Logger::logLevel() <= Logger::TRACE)
+        // {
+        //     printActiveChannels();
+        // }
 
         eventHandling_ = true;
         for(Channel * channel : activeChannels_)
@@ -109,7 +113,7 @@ void EventLoop::loop()
         }
         currentActiveChannel_ = NULL;
         eventHandling_ = false;
-        //doPendingFunctors();
+        doPendingFunctors();
     }   
 
     LOG_TRACE << "EventLoop " << this << " stop looping";
@@ -125,22 +129,23 @@ void EventLoop::abortNotInLoopThread()
 
 bool EventLoop::hasChannel(Channel* channel)
 {
-  assert(channel->ownerLoop() == this);
-  assertInLoopThread();
+  // assert(channel->ownerLoop() == this);
+  // assertInLoopThread();
   return poller_->hasChannel(channel);
 }
 
 void EventLoop::updateChannel(Channel* channel)
 {
-  assert(channel->ownerLoop() == this);
-  assertInLoopThread();
+  //assert(channel->ownerLoop() == this);
+  //assertInLoopThread();
+  LOG_DEBUG << "CHANNEL";
   poller_->updateChannel(channel);
 }
 
 void EventLoop::removeChannel(Channel* channel)
 {
-  assert(channel->ownerLoop() == this);
-  assertInLoopThread();
+  //assert(channel->ownerLoop() == this);
+  //assertInLoopThread();
   if (eventHandling_)
   {
     assert(currentActiveChannel_ == channel ||
@@ -160,15 +165,15 @@ void EventLoop::quit()
     //wakeup
 }
 
-// void EventLoop::wakeup()
-// {
-//     uint64_t one = 1;
-//     ssize_t n = sockets::write(wakeupFd_, &one, sizeof one);
-//     if(n != sizeof one)
-//     {
-//         LOG_ERROR << "EventLoop::wakeup() writes " << n << " bytes instead of 8";
-//     }
-// }
+void EventLoop::wakeup()
+{
+    uint64_t one = 1;
+    ssize_t n = write(wakeupFd_, &one, sizeof one);
+    if(n != sizeof one)
+    {
+        LOG_ERROR << "EventLoop::wakeup() writes " << n << " bytes instead of 8";
+    }
+}
 
 void EventLoop::runInLoop(const Functor& cb)
 {   
@@ -176,7 +181,7 @@ void EventLoop::runInLoop(const Functor& cb)
     {
         cb();
     }else{
-        //queueInLoop(std::move(cb));
+        queueInLoop(std::move(cb));
     }
 }
 
@@ -189,7 +194,17 @@ void EventLoop::queueInLoop(Functor cb)
 
   if (!isInLoopThread() || callingPendingFunctors_)
   {
-    //wakeup();
+    wakeup();
+  }
+}
+
+void EventLoop::handleRead()
+{
+  uint64_t one = 1;
+  ssize_t n = read(wakeupFd_, &one, sizeof one);
+  if(n != sizeof one)
+  {
+    // LOG_ERROR 
   }
 }
 

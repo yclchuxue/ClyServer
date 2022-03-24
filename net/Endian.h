@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <endian.h>
 
-namespace muduo
+namespace eff
 {
 namespace net
 {
@@ -48,8 +48,7 @@ inline uint16_t networkToHost16(uint16_t net16)
 #pragma GCC diagnostic pop
 
 }  // namespace sockets
-}  // namespace net
-}  // namespace muduo
-
+}
+}
  
  #endif

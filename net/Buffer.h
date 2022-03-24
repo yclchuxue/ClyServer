@@ -9,12 +9,11 @@
 #include <vector>
 #include <assert.h>
 #include <string>
-
-namespace muduo
+ 
+namespace eff
 {
 namespace net
 {
-
 // class copyable
 // {
 //     protected:
@@ -128,15 +127,15 @@ class Buffer //: public copyable
       std::swap(writerIndex_, rhs.writerIndex_);
     }
 
-    string retrieveAllAsString()
+    std::string retrieveAllAsString()
     {
       return retrieveAsString(readableBytes());
     }
 
-    string retrieveAsString(size_t len)
+    std::string retrieveAsString(size_t len)
     {
       assert(len <= readableBytes());
-      string result(peek(), len);
+      std::string result(peek(), len);
       retrieve(len);
       return result;
     }

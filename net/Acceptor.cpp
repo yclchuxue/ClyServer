@@ -2,27 +2,20 @@
 #include "../base/Logging.h"
 #include "EventLoop.h"
 #include "SocketsOps.h"
-#include "InetAddress.h"
 
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-using namespace muduo;
-using namespace muduo::net;
-
+using namespace eff;
+using namespace eff::net; 
 using std::placeholders::_1;
 
-Acceptor::Acceptor(EventLoop* loop, const InetAddress & listenAddr, bool reuseport)
+Acceptor::Acceptor(EventLoop* loop, const InetAddress & listenAddr)
     :   loop_(loop),
-        acceptSocket_(sockets::createNonblockingOrDie(listenAddr.family())),
+        acceptSocket_(sockets::createNonblockingOrDie(listenAddr.addr_.sin_family)),
         acceptChannel_(loop, acceptSocket_.fd()),
         listening_(false)
-        //idleFd_(::open("dev/null", O_RDONLY | O_CLOEXEC))
 {
-    //assert(idleFd_ >= 0);
-    acceptSocket_.setReuseAddr(true);    //允许端口重用
-    acceptSocket_.setReusePort(reuseport); //是否设置端口释放后无需等待
     acceptSocket_.bindAddress(listenAddr); //解析addr并绑定
     acceptChannel_.setReadCallback(
                     std::bind(&Acceptor::handleRead, this));
@@ -37,18 +30,20 @@ Acceptor::~Acceptor()
 
 void Acceptor::listen()
 {
-    loop_->assertInLoopThread();
+    // loop_->assertInLoopThread();
     listening_ = true;
     acceptSocket_.listen();   //listen fd
     acceptChannel_.enableReading(); //设置events
+    LOG_DEBUG << "set channel listen";
 }
 
 void Acceptor::handleRead()       //listen
 {
-    loop_->assertInLoopThread();
+    //loop_->assertInLoopThread();
     InetAddress peerAddr;
 
     int connfd = acceptSocket_.accept(&peerAddr);
+    LOG_DEBUG << connfd;
     if(connfd >= 0)
     {
         if(newConnectionCallback_)

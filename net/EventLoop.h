@@ -17,17 +17,14 @@
 #include <mutex>
 #include "Callbacks.h"
 
-namespace muduo
+namespace eff
 {
-
 namespace net
 {
-
 class PollPoller;
 class Channel;
 //class TimeQueue;
-
-class EventLoop : noncopyable
+class EventLoop //: noncopyable
 {
     public:
         typedef std::function<void()> Functor;
@@ -43,16 +40,16 @@ class EventLoop : noncopyable
         int64_t iteration() const { return iteration_; }
 
         
-        TimerId runAt(const Timestamp& time, const TimerCallback& cb);
-        TimerId runAfter(double delay, const TimerCallback& cb);
-        TimerId runEvery(double interval, const TimerCallback & cb);
+        // TimerId runAt(const Timestamp& time, const TimerCallback& cb);
+        // TimerId runAfter(double delay, const TimerCallback& cb);
+        // TimerId runEvery(double interval, const TimerCallback & cb);
         
 
         void runInLoop(const Functor&cb);
 
         void queueInLoop(Functor cb);
 
-        void cancel(TimerId timerId);
+        //void cancel(TimerId timerId);
 
         void wakuo();
 
@@ -68,6 +65,9 @@ class EventLoop : noncopyable
             }
         }
 
+
+        void wakeup();
+        
         void updateChannel(Channel* channel);
 
         bool isInLoopThread() const { return threadId_ == syscall(SYS_gettid); }
@@ -86,7 +86,7 @@ class EventLoop : noncopyable
 
     private:
         void abortNotInLoopThread();
-        //void handleRead();
+        void handleRead();
         void doPendingFunctors();
 
         void printActiveChannels() const; //debug
@@ -115,7 +115,6 @@ class EventLoop : noncopyable
 };
 
 }
-
 }
 
 #endif
