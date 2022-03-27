@@ -21,7 +21,7 @@ TcpServer::TcpServer(EventLoop * loop,
         threadPool_(new EventLoopThreadPool(loop, name_)),
         nextConnId_(1)
 {
-    LOG_DEBUG << "构造完tcpserver";
+    //LOG_DEBUG << "构造完tcpserver" << loop_->threadId_ << "\t" << loop_->wakeupFd_;
     acceptor_->setNewConnectionCallback(std::bind(&TcpServer::newConnection, this, _1, _2));
 }
 
@@ -84,12 +84,14 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr)
 
 void TcpServer::removeConnection(const TcpConnectionPtr& conn)
 {
+    LOG_DEBUG << "front runInLoop : " << syscall(SYS_gettid);
     loop_->runInLoop(std::bind(&TcpServer::removeConnectionInLoop, this, conn));
 }
 
 void TcpServer::removeConnectionInLoop(const TcpConnectionPtr & conn)
 {
     //loop_->assertInLoopThread();
+    LOG_DEBUG << syscall(SYS_gettid);
     LOG_INFO << "TcpServer::removeConnectionInLoop [" << name_
              << "] - connection " << conn->name();
 
@@ -97,5 +99,5 @@ void TcpServer::removeConnectionInLoop(const TcpConnectionPtr & conn)
     (void)n;
     assert(n == 1);
     //EventLoop* ioLoop = conn->getLoop();
-    loop_->runInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
+    loop_->queueInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
 }

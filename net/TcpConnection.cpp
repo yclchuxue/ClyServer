@@ -13,7 +13,7 @@ using namespace eff::net;
 
 void defaultConnectionCallback(const TcpConnectionPtr & conn)
 {
-    LOG_TRACE  << (conn->connected() ? "UP" : "DOWN");
+    LOG_TRACE  << (conn->connectfd() ? "UP" : "DOWN");
 }
 
 void defaultMessageCallback(const TcpConnectionPtr &,
@@ -36,8 +36,7 @@ TcpConnection::TcpConnection(EventLoop * loop,
         socket_(new Socket(sockfd)),
         channel_(new Channel(loop, sockfd)),
         localAddr_(localAddr),
-        peerAddr_(peerAddr),
-        highWaterMark_(64*1024*1024)
+        peerAddr_(peerAddr)
 {
     channel_->setReadCallback(
                     std::bind(&TcpConnection::handleRead, this, _1));
@@ -100,26 +99,26 @@ void TcpConnection::send(const std::string& message)
 }
 
 // FIXME efficiency!!!
-// void TcpConnection::send(Buffer* buf)
-// {
-//   if (state_ == kConnected)
-//   {
-//     if (loop_->isInLoopThread())
-//     {
-//       sendInLoop(buf->peek(), buf->readableBytes());
-//       buf->retrieveAll();
-//     }
-//     else
-//     {
-//       void (TcpConnection::*fp)(const StringPiece& message) = &TcpConnection::sendInLoop;
-//       loop_->runInLoop(
-//           std::bind(fp,
-//                     this,     // FIXME
-//                     buf->retrieveAllAsString()));
-//                     //std::forward<string>(message)));
-//     }
-//   }
-// }
+void TcpConnection::send(Buffer* buf)
+{
+  if (state_ == kConnected)
+  {
+    if (loop_->isInLoopThread())
+    {
+      sendInLoop(buf->peek(), buf->readableBytes());
+      buf->retrieveAll();
+    }
+    // else
+    // {
+    //   void (TcpConnection::*fp)(const StringPiece& message) = &TcpConnection::sendInLoop;
+    //   loop_->runInLoop(
+    //       std::bind(fp,
+    //                 this,     // FIXME
+    //                 buf->retrieveAllAsString()));
+    //                 //std::forward<string>(message)));
+    // }
+  }
+}
 
 void TcpConnection::sendInLoop(const void* message, size_t len)
 {
@@ -399,16 +398,18 @@ void TcpConnection::handleWrite()
 
 void TcpConnection::handleClose()
 {
-  //loop_->assertInLoopThread();
-  //LOG_TRACE << "fd = " << channel_->fd() << " state = " << stateToString();
-  //assert(state_ == kConnected || state_ == kDisconnecting);
-  // we don't close fd, leave it to dtor, so we can find leaks easily.
+  LOG_DEBUG << "";
+  loop_->assertInLoopThread();
+  LOG_DEBUG << "";
+  LOG_TRACE << "fd = " << channel_->fd() << " state = " << stateToString();
+  assert(state_ == kConnected || state_ == kDisconnecting);
+
   setState(kDisconnected);
   channel_->disableAll();
 
   TcpConnectionPtr guardThis(shared_from_this());
-  // connectionCallback_(guardThis);
-  // must be the last line
+  connectionCallback_(guardThis);
+  LOG_DEBUG << "front closeCallback : " << syscall(SYS_gettid);
   closeCallback_(guardThis);
 }
 

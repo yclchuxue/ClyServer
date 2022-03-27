@@ -2,7 +2,7 @@
 #include "Timestamp.h"
 
 #include <sys/time.h>
-
+#include <chrono>
 #include <stdio.h>
 #include <inttypes.h>
 
@@ -11,33 +11,28 @@ using namespace eff;
 static_assert(sizeof(Timestamp) == sizeof(int64_t),
                         "Timestamp shoud be same size as int64_t");
 
-std::string Timestamp::toString() const
-{
-    char buf[32] = {0};
-    int64_t seconds = microSecondsSinceEpoch_ / kMicroSecondsPerSecond;
-    int64_t microseconds = microSecondsSinceEpoch_ % kMicroSecondsPerSecond;
-    snprintf(buf, sizeof(buf), "%" PRId64 ".%06" PRId64 "", seconds, microseconds);
-    return buf;
-}
+// std::string Timestamp::toString() const
+// {
+//     char buf[32] = {0};
+//     int64_t seconds = microSecondsSinceEpoch_ / kMicroSecondsPerSecond;
+//     int64_t microseconds = microSecondsSinceEpoch_ % kMicroSecondsPerSecond;
+//     snprintf(buf, sizeof(buf), "%" PRId64 ".%06" PRId64 "", seconds, microseconds);
+//     return buf;
+// }
 
-std::string Timestamp::toFormattedString(bool showMicroseconds) const
+std::string Timestamp::toFormattedString() const
 {
     char buf[64] = {0};
-    time_t seconds = static_cast<time_t>(microSecondsSinceEpoch_ / kMicroSecondsPerSecond);
-    struct tm tm_time;
-    gmtime_r(&seconds, &tm_time);
+    int64_t milli = microSecondsSinceEpoch_ / 1000 + (int64_t)8 * 60 * 60 * 1000;
+    auto mTime = std::chrono::milliseconds(milli);
+    auto tp = std::chrono::time_point<std::chrono::system_clock,
+                                      std::chrono::milliseconds>(mTime);
+    auto tt = std::chrono::system_clock::to_time_t(tp);
+    std::tm *now = std::gmtime(&tt);
 
-    if(showMicroseconds)
-    {
-        int microseconds = static_cast<int>(microSecondsSinceEpoch_ % kMicroSecondsPerSecond);
-        snprintf(buf, sizeof(buf), "%4d%02d%02d %02d:%02d:%02d.%06d",
-                    tm_time.tm_year + 1900, tm_time.tm_mon + 1, tm_time.tm_mday,
-                    tm_time.tm_hour, tm_time.tm_min, tm_time.tm_sec, microseconds);
-    }else{
-        snprintf(buf, sizeof(buf), "%4d%02d%02d %02d:%02d:%02d",
-                    tm_time.tm_year + 1900, tm_time.tm_mon + 1,  tm_time.tm_mday,
-                    tm_time.tm_hour, tm_time.tm_min, tm_time.tm_sec);
-    }
+    snprintf(buf, sizeof(buf), "%4d%02d%02d %02d:%02d:%02d",
+                    now->tm_year + 1900, now->tm_mon + 1,  now->tm_mday,
+                    now->tm_hour, now->tm_min, now->tm_sec);
 
     return buf;
 }

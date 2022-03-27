@@ -2,6 +2,7 @@
 #define NET_TCPCONNECTION_H
 #include "../base/noncopyable.h"
 // #include "../base/StringPiece.h"
+#include "../http/HttpContext.h"
 #include "../base/Types.h"
 #include "Callbacks.h"
 #include "Buffer.h"
@@ -35,7 +36,7 @@ class TcpConnection :     //: noncopyable,
         const std::string & name() const { return name_;} 
         const InetAddress& localAddress() const { return localAddr_; }
         const InetAddress& peerAddress()  const { return peerAddr_; }
-        bool connected() const { return state_ == kConnected; }
+        bool connectfd() const { return state_ == kConnected; }
         bool disconnected() const { return state_ == kConnected; }
 
         bool getTcpInfo(struct tcp_info*) const;
@@ -55,14 +56,14 @@ class TcpConnection :     //: noncopyable,
         void stopRead();
         bool isReading() const { return reading_; };
 
-        // void setContext(const boost::any& context)
-        // { context_ = context; }
+        void setContext(const HttpContext& context)
+        { context_ = context; }
 
         // const boost::any& getContext() const
         // { return context_; }
 
-        // boost::any* getMutableContext()
-        // { return &context_; }
+        HttpContext* getMutableContext()
+        { return &context_; }
 
         void setConnectionCallback(const ConnectionCallback& cb)
         { connectionCallback_ = cb; }
@@ -72,9 +73,6 @@ class TcpConnection :     //: noncopyable,
 
         void setWriteCompleteCallback(const WriteCompleteCallback& cb)
         { writeCompleteCallback_ = cb; }
-
-        void setHighWaterMarkCallback(const HighWaterMarkCallback& cb, size_t highWaterMark)
-        { highWaterMarkCallback_ = cb; highWaterMark_ = highWaterMark; }
 
         /// Advanced interface
         Buffer* inputBuffer()
@@ -123,12 +121,12 @@ class TcpConnection :     //: noncopyable,
         ConnectionCallback connectionCallback_; 
         MessageCallback messageCallback_;
         WriteCompleteCallback writeCompleteCallback_;
-        HighWaterMarkCallback highWaterMarkCallback_;
+
         CloseCallback closeCallback_;
-        size_t highWaterMark_;
+
         Buffer inputBuffer_;
         Buffer outputBuffer_;
-        //boost::any contesxt;
+        HttpContext context_;
 
 };
 

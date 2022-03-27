@@ -111,6 +111,7 @@ void EventLoop::loop()
             currentActiveChannel_ = channel;
             currentActiveChannel_->handleEvent(pollReturnTime_);
         }
+        LOG_DEBUG << "";
         currentActiveChannel_ = NULL;
         eventHandling_ = false;
         doPendingFunctors();
@@ -177,16 +178,20 @@ void EventLoop::wakeup()
 
 void EventLoop::runInLoop(const Functor& cb)
 {   
+  LOG_DEBUG << "in runInLoop : " << syscall(SYS_gettid) << "threadId = " << threadId_;
     if(isInLoopThread())
     {
         cb();
     }else{
+        LOG_DEBUG << "AAAA";
         queueInLoop(std::move(cb));
     }
 }
 
 void EventLoop::queueInLoop(Functor cb)
 {
+
+  LOG_DEBUG << syscall(SYS_gettid);
   {
   std::lock_guard<std::mutex> guard(mutex_);
   pendingFunctors_.push_back(std::move(cb));

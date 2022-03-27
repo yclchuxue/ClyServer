@@ -1,6 +1,5 @@
 #include "FileUtil.h"
-
-
+#include <string>
 #include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -8,10 +7,10 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-using namespace muduo;
+using namespace eff;
 
-FileUtil::AppendFile::AppendFile(StringArg filename)
-    :   fp_(fopen(filename.c_str(), "ae")),
+FileUtil::AppendFile::AppendFile(std::string filename)
+    :   fp_(fopen(filename.data(), "ae")),
         writtenBytes_(0)
 {
     assert(fp_);
@@ -37,7 +36,7 @@ void FileUtil::AppendFile::append(const char *logline, const size_t len)
             int err = ferror(fp_);
             if(err)
             {
-                fprintf(stderr, "AppendFile::append() failed %s\n", strerror_tl(err));
+                fprintf(stderr, "AppendFile::append() failed\n");
                 break;
             }
         }
@@ -57,8 +56,8 @@ size_t FileUtil::AppendFile::write(const char *logline, size_t len)
     return ::fwrite_unlocked(logline, 1, len, fp_);
 }
 
-FileUtil::ReadSmallFile::ReadSmallFile(StringArg filename)
-    :   fd_(::open(filename.c_str(), O_RDONLY | O_CLOEXEC)),
+FileUtil::ReadSmallFile::ReadSmallFile(std::string filename)
+    :   fd_(::open(filename.data(), O_RDONLY | O_CLOEXEC)),
         err_(0)
 {
     buf_[0] = '\0';
@@ -93,12 +92,13 @@ int FileUtil::ReadSmallFile::readToString(int maxSize,
 
         if(fileSize)
         {
+            struct stat statbuf;
             if(::fstat(fd_, &statbuf) == 0)
             {
                 if(S_ISREG(statbuf.st_mode))
                 {
                     *fileSize = statbuf.st_size;
-                    content->reserve(static_cast<int>(std::min(implicit_cast<int64_t>(maxSize),*fileSize)));
+                    content->reserve(static_cast<int>(std::min(static_cast<int64_t>(maxSize),*fileSize)));
                 }else if(S_ISDIR(statbuf.st_mode))
                 {
                     err = EISDIR;
@@ -112,9 +112,9 @@ int FileUtil::ReadSmallFile::readToString(int maxSize,
             }
         }
 
-        while(content->size() < implicit_cast<size_t>(maxSize))
+        while(content->size() < static_cast<size_t>(maxSize))
         {
-            size_t toRead = std::min(implicit_cast<size_t>(maxSize) - content->size(), sizeof(buf_));
+            size_t toRead = std::min(static_cast<size_t>(maxSize) - content->size(), sizeof(buf_));
             ssize_t n = ::read(fd_, buf_, toRead);
             if(n > 0)
             {

@@ -1,3 +1,5 @@
+#ifndef BASE_LOGFILE_H
+#define BASE_LOGFILE_H
 //#include "FileUtil.h"
 #include "noncopyable.h"
 #include <memory>
@@ -8,7 +10,7 @@
 
 using namespace std;
 
-namespace muduo
+namespace eff
 {
 
 namespace FileUtil
@@ -16,7 +18,7 @@ namespace FileUtil
 class AppendFile;
 }
 
-class LogFile : noncopyable
+class LogFile //: noncopyable
 {
     public:
         LogFile(const string &basename, //项目名称
@@ -42,7 +44,7 @@ class LogFile : noncopyable
         const int checkEveryN_;
 
         int count_;
-        //unique_lock<std::mutex>
+
         std::unique_ptr<mutex> mutex_;
         time_t startOfPeriod_;
         time_t lastRoll_;
@@ -52,3 +54,5 @@ class LogFile : noncopyable
         const static int kRollPerSeconds_ = 60*60*24;
 };
 }
+
+#endif

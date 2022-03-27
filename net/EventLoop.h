@@ -70,7 +70,11 @@ class EventLoop //: noncopyable
         
         void updateChannel(Channel* channel);
 
-        bool isInLoopThread() const { return threadId_ == syscall(SYS_gettid); }
+        bool isInLoopThread() const 
+        { 
+            LOG_DEBUG << threadId_  << "AAA" << syscall(SYS_gettid);
+            return threadId_ == syscall(SYS_gettid); 
+        }
 
         bool eventHandling() const { return eventHandling_; }
 

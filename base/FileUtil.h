@@ -1,16 +1,19 @@
-#include "StringPiece.h"
+#ifndef BASE_FILEUTIL_H
+#define BASE_FILEUTIL_H
+// #include "StringPiece.h"
 #include <sys/types.h>
 #include "noncopyable.h"
+#include <string>
 
-namespace muduo
+namespace eff
 {
 namespace FileUtil
 {
 
-class ReadSmallFile : noncopyable
+class ReadSmallFile //: noncopyable
 {
     public:
-        ReadSmallFile(StringArg filename);
+        ReadSmallFile(std::string filename);
         ~ReadSmallFile();
 
         template<typename String>
@@ -32,10 +35,10 @@ class ReadSmallFile : noncopyable
         char buf_[kBufferSize];
 };
 
-class AppendFile : noncopyable
+class AppendFile //: noncopyable
 {
     public:
-        explicit AppendFile(StringArg filename);
+        explicit AppendFile(std::string filename);
 
         ~AppendFile();
 
@@ -56,3 +59,5 @@ class AppendFile : noncopyable
 
 }
 }
+
+#endif

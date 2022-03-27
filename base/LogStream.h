@@ -21,7 +21,7 @@ namespace detail
             FixedBuffer()
                 :   cur_(data_)
             {
-
+                
             }
 
             ~FixedBuffer()
@@ -123,17 +123,6 @@ class LogStream //: noncopyable
             return *this;
         }
 
-        // self& operator<<(const StringPiece& v)
-        // {
-        //     buffer_.append(v.data(), v.size());
-        //     return *this;
-        // }
-
-        // self& operator<<(const Buffer& v)
-        // {
-        //     *this << v.toStringPiece();
-        //     return *this;
-        // }
 
         void append(const char * data, int len) { buffer_.append(data, len); }
         const Buffer& buffer() const {return buffer_; }

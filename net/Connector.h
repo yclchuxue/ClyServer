@@ -1,15 +1,5 @@
-// Copyright 2010, Shuo Chen.  All rights reserved.
-// http://code.google.com/p/muduo/
-//
-// Use of this source code is governed by a BSD-style license
-// that can be found in the License file.
-
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
-//
-// This is an internal header file, you should not include this.
-
-#ifndef MUDUO_NET_CONNECTOR_H
-#define MUDUO_NET_CONNECTOR_H
+#ifndef NET_CONNECTOR_H
+#define NET_CONNECTOR_H
 
 #include "../base/noncopyable.h"
 #include "InetAddress.h"
@@ -17,7 +7,7 @@
 #include <functional>
 #include <memory>
 
-namespace muduo
+namespace eff
 {
 namespace net
 {
@@ -69,6 +59,6 @@ class Connector : noncopyable,
 };
 
 }  // namespace net
-}  // namespace muduo
+}  // namespace eff
 
-#endif  // MUDUO_NET_CONNECTOR_H
+#endif  // NET_CONNECTOR_H

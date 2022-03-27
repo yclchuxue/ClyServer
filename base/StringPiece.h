@@ -5,7 +5,7 @@
 
 using namespace std;
 
-namespace muduo
+namespace eff
 {
 
 class StringArg
@@ -15,9 +15,9 @@ class StringArg
             :   str_(str)
         {}
     
-        // StringArg(const string& str)
-        //     :   str_(str.c_str())
-        // {}   
+        StringArg(const string& str)
+            :   str_(str.c_str())
+        {}   
 
         const char * c_str() const {return str_;}
 

@@ -1,12 +1,11 @@
 #include "LogFile.h"
 #include "Thread.h"
-
 #include <mutex>
 #include <assert.h>
 #include <stdio.h>
 #include <time.h>
-
-using namespace muduo;
+// #include "ProcessInfo.h"
+using namespace eff;
 
 LogFile::LogFile(const string &basename,
                     off_t rollSize,
@@ -27,6 +26,7 @@ LogFile::LogFile(const string &basename,
     rollFile();
 }
 
+LogFile::~LogFile() = default;
 
 bool LogFile::rollFile()
 {
@@ -45,6 +45,22 @@ bool LogFile::rollFile()
     return false;
 }
 
+std::string hostname()
+{
+  // HOST_NAME_MAX 64
+  // _POSIX_HOST_NAME_MAX 255
+  char buf[256];
+  if (::gethostname(buf, sizeof buf) == 0)
+  {
+    buf[sizeof(buf)-1] = '\0';
+    return buf;
+  }
+  else
+  {
+    return "unknownhost";
+  }
+}
+
 string LogFile::getLogFileName(const string& basename, time_t* now)
 {
     string filename;
@@ -58,10 +74,10 @@ string LogFile::getLogFileName(const string& basename, time_t* now)
     strftime(timebuf, sizeof timebuf, ".%Y%m%d-%H%M%S.", &tm);
     filename += timebuf;
 
-    filename += ProcessInfo::hostname();
+    filename += hostname();
 
     char pidbuf[32];
-    snprintf(pidbuf, sizeof pidbuf, ".%d", ProcessInfo::pid());
+    snprintf(pidbuf, sizeof pidbuf, ".%d", ::getpid());
     filename += pidbuf;
 
     filename += ".log";
@@ -108,5 +124,16 @@ void LogFile::append_unlocked(const char* logline, int len)
             file_->flush();
         }
         }
+    }
+}
+
+void LogFile::flush()
+{
+    if(mutex_)
+    {
+        std::unique_lock<std::mutex> guard(*mutex_);
+        file_->flush();
+    }else{
+        file_->flush();
     }
 }

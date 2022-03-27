@@ -1,27 +1,42 @@
+#ifndef BASE_ASYNCLOGGING_H
+#define BASE_ASYNCLOGGING_H
 #include "LogStream.h"
-#include "noncopyable.h"
-
+//#include "noncopyable.h"
+#include "Thread.h"
 #include <string>
 #include <mutex>
 #include <thread>
 #include <atomic>
 #include <vector>
 #include <condition_variable>
+#include <future>
 
-namespace muduo
+namespace eff
 {
-class AsyncLogging : noncopyable
+
+class AsyncLogging //: noncopyable
 {
     public:
         AsyncLogging(const std::string& basename,
                         off_t rollsize, //long int,文件缓冲区中需要刷新时的字节数
                         size_t flushInterval = 3);
 
-        void start();
+        void start()
+        {
+            std::future<void> p = latch_.get_future();
+            running_ = true;
+            thread_.start();
+            p.get();
+        }
 
-        void stop();
+        void stop()
+        {
+            running_ = false;
+            cond_.notify_one();
+            thread_.join();
+        }
 
-        void append(const char *line, int len);
+        void append(const char *logline, int len);
 
         ~AsyncLogging()
         {
@@ -31,9 +46,9 @@ class AsyncLogging : noncopyable
     private:
         
 
-        void AsyncFunc();
+        void threadFunc();
 
-        typedef muduo::detail::FixedBuffer<muduo::detail::kLargeBuffer> Buffer;
+        typedef eff::detail::FixedBuffer<eff::detail::kLargeBuffer> Buffer;
         typedef std::vector<std::unique_ptr<Buffer>> BufferVector;
         typedef BufferVector::value_type BufferPtr;
 
@@ -41,14 +56,15 @@ class AsyncLogging : noncopyable
         std::atomic<bool> running_;
         const string basename;
         const off_t rollSize;
-        std::thread thread_;
-        //muduo::CountDownLatch latch_;
+        Thread thread_;
+        std::promise<void> latch_;
         std::mutex mutex_;
-        std::condition_variable cv;
-        //muduo::Condition cond_ GUARDED_BY(mutex_);
+        std::condition_variable cond_;
         BufferPtr currentBuffer_; //GUARDED_BY(mutex_);
         BufferPtr nextBuffer_ ;//GUARDED_BY(mutex_);
         BufferVector buffers_ ;//GUARDED_BY(mutex_);
 
 };
 }
+
+#endif

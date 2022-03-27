@@ -1,61 +1,52 @@
 #include <chrono>
-
+#include <future>
 #include "AsyncLogging.h"
 #include "LogFile.h"
 #include "Timestamp.h"
 
-using namespace muduo;
+using namespace eff;
 
 AsyncLogging::AsyncLogging(const std::string& basename,
                             off_t rollsize,
-                            size_t flushInterval = 3)
+                            size_t flushInterval)
     :   basename(basename),
         rollSize(rollsize),
         flushInterval_(flushInterval),
         running_(false),
         currentBuffer_(new Buffer),
-        nextBuffer_(new Buffer)
-
+        nextBuffer_(new Buffer),
+        buffers_(),
+        thread_(std::bind(&AsyncLogging::threadFunc, this), "Logging")
 {
     currentBuffer_->bzero();
     nextBuffer_->bzero(); //memset
     buffers_.reserve(16); //提前分配空间
 }
 
-void AsyncLogging::start()
-{   
-    running_ = true;
-    thread_ = std::thread(&AsyncLogging::AsyncFunc, this);     //开启一个线程运行AsyncFunc
-}
 
-void AsyncLogging::stop()
-{
-    running_ = false;
-    cv.notify_one();
-    thread_.join();
-}
 
-void AsyncLogging::append(const char * line, int len)
+void AsyncLogging::append(const char *logline, int len)
 {
     std::lock_guard<std::mutex> guard(mutex_);
-    if(currentBuffer_->avail() > len)
+    if(currentBuffer_->avail() > len)  //当前buffer可写长度大于写入长度
     {
-        currentBuffer_->append(line, len);
+        currentBuffer_->append(logline, len);
     }else{
-        buffers_.push_back(std::move(currentBuffer_));
-        if(nextBuffer_)
+        buffers_.push_back(std::move(currentBuffer_)); //将当前写入的buffer写入buffers
+        if(nextBuffer_)              //nextbuffer存在的话补充
         {
             currentBuffer_ = std::move(nextBuffer_);
         }else{
-            currentBuffer_.reset(new Buffer);
+            currentBuffer_.reset(new Buffer);     // Rarely happens  //不存在的话重新申请
         }
-        currentBuffer_->append(line, len);
-        cv.notify_one();
+        currentBuffer_->append(logline, len);   //经过上面操作确保currentBuffer_的存在
+        cond_.notify_one();                 //条件变量通知
     }
 }
 
-void AsyncLogging::AsyncFunc()
+void AsyncLogging::threadFunc()
 {
+    latch_.set_value();
     LogFile output(basename, rollSize, false);
     BufferPtr newBuffer1(new Buffer);
     BufferPtr newBuffer2(new Buffer);
@@ -75,7 +66,7 @@ void AsyncLogging::AsyncFunc()
             std::unique_lock<std::mutex> guard(mutex_);
             if(buffers_.empty())
             {
-                cv.wait_for(guard, interval);
+                cond_.wait_for(guard, interval);
             }
             buffers_.push_back(std::move(currentBuffer_));
             currentBuffer_ = std::move(newBuffer1);
