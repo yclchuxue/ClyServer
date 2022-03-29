@@ -87,5 +87,15 @@ bool HttpContext::parseRequest(Buffer *buf, Timestamp receiveTime)
         }
     }
 
+    LOG_DEBUG << request_.method_;
+    LOG_DEBUG << request_.version_;
+    LOG_DEBUG << request_.path_;
+    LOG_DEBUG << request_.query_;
+    for(auto it : request_.headers_)
+    {
+        LOG_DEBUG << it.first << ":\t" << it.second;
+    }
+
+
     return ok;
 }

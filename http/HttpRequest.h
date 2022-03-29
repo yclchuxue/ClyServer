@@ -1,8 +1,8 @@
 #ifndef HTTP_HTTPREQUEST_H
 #define HTTP_HTTPREQUEST_H
 
-#include "base/Timestamp.h"
-#include "base/Types.h"
+#include "../base/Timestamp.h"
+#include "../base/Types.h"
 
 #include <map>
 #include <assert.h>
@@ -149,7 +149,7 @@ class HttpRequest
             headers_.swap(that.headers_);
         }
     
-    private:
+    //private:
         Method  method_;
         Version version_;
         string  path_;

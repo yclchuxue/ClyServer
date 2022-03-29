@@ -1,14 +1,13 @@
 #ifndef HTTP_HTTPCONTEXT_H
 #define HTTP_HTTPCONTEXT_H
-
+#include "../base/Logging.h"
 #include "HttpRequest.h"
 
 namespace eff
 {
-class net::Buffer;
-
-// namespace http
-// {
+namespace net
+{
+class Buffer;
 class HttpContext
 {
     public:
@@ -27,7 +26,10 @@ class HttpContext
         bool parseRequest(Buffer* buf, Timestamp receiveTime);
     
         bool gotAll() const
-        {  return state_ == kGotAll; }
+        {  
+            //LOG_DEBUG << state_;
+            return state_ == kGotAll; 
+        }
 
         void reset()
         {
@@ -50,7 +52,7 @@ class HttpContext
         HttpRequest request_;
 };
 
-// }
+}
 }
 
 #endif
