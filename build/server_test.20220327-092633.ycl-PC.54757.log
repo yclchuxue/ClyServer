@@ -1,0 +1,317 @@
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 4 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG createNonblockingOrDie 5 - SocketsOps.cpp;50
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG EchoServer 构造EchoServer - echo.cpp;14
+2022-3-27 17:26:33 DEBUG start Start - TcpServer.cpp;49
+2022-3-27 17:26:33 DEBUG isInLoopThread 54757AAA54757 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 6 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG poll fd = 6	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 7 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG poll fd = 7	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 8 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG isInLoopThread 54763AAA54763 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG poll fd = 8	tid = 54763 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 9 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG isInLoopThread 54764AAA54764 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG poll fd = 9	tid = 54764 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 10 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG isInLoopThread 54765AAA54765 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG poll fd = 10	tid = 54765 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 11 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG isInLoopThread 54766AAA54766 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG poll fd = 11	tid = 54766 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 12 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG isInLoopThread 54767AAA54767 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG poll fd = 12	tid = 54767 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 13 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG isInLoopThread 54768AAA54768 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG poll fd = 13	tid = 54768 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 14 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG isInLoopThread 54769AAA54769 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG poll fd = 14	tid = 54769 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 15 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG isInLoopThread 54770AAA54770 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG runInLoop in runInLoop : 54757threadId = 54757 - EventLoop.cpp;181
+2022-3-27 17:26:33 DEBUG isInLoopThread 54757AAA54757 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG poll fd = 15	tid = 54770 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG listenOrDie   - SocketsOps.cpp;78
+2022-3-27 17:26:33 DEBUG listenOrDie listening - SocketsOps.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:33 DEBUG updateChannel fd = 5 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:33 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:33 DEBUG listen set channel listen - Acceptor.cpp;37
+2022-3-27 17:26:33 DEBUG isInLoopThread 54757AAA54757 - EventLoop.h;75
+2022-3-27 17:26:33 DEBUG loop in loop - EventLoop.cpp;93
+2022-3-27 17:26:33 DEBUG poll fd = 4	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:33 DEBUG poll fd = 5	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:42 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:42 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:42 DEBUG fillActiveChannels evennts hhhhhhhhhhhh5 - PollPoller.cpp;73
+2022-3-27 17:26:42 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:42 DEBUG accept connfd = 16 - Socket.cpp;68
+2022-3-27 17:26:42 DEBUG handleRead 16 - Acceptor.cpp;46
+2022-3-27 17:26:42 DEBUG isInLoopThread 54757AAA54757 - EventLoop.h;75
+2022-3-27 17:26:42 DEBUG isInLoopThread 54757AAA54757 - EventLoop.h;75
+2022-3-27 17:26:42 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:42 DEBUG TcpConnection TcpConnection::stor[testconnection-1] at0x13C3090 fd=16 - TcpConnection.cpp;49
+2022-3-27 17:26:42 DEBUG runInLoop in runInLoop : 54757threadId = 54761 - EventLoop.cpp;181
+2022-3-27 17:26:42 DEBUG isInLoopThread 54761AAA54757 - EventLoop.h;75
+2022-3-27 17:26:42 DEBUG runInLoop AAAA - EventLoop.cpp;186
+2022-3-27 17:26:42 DEBUG queueInLoop 54757 - EventLoop.cpp;194
+2022-3-27 17:26:42 DEBUG isInLoopThread 54761AAA54757 - EventLoop.h;75
+2022-3-27 17:26:42 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:42 DEBUG poll fd = 4	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:42 DEBUG poll fd = 5	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:42 DEBUG poll numEvents = 1 A 1 - PollPoller.cpp;38
+2022-3-27 17:26:42 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:42 DEBUG fillActiveChannels evennts hhhhhhhhhhhh6 - PollPoller.cpp;73
+2022-3-27 17:26:42 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:42 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:42 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:42 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:42 DEBUG updateChannel fd = 16 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:42 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:42 DEBUG onConnection echo server get connected*********************** - echo.cpp;37
+2022-3-27 17:26:42 DEBUG poll fd = 6	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:42 DEBUG poll fd = 16	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:43 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:43 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:43 DEBUG fillActiveChannels evennts hhhhhhhhhhhh16 - PollPoller.cpp;73
+2022-3-27 17:26:43 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:43 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:43 DEBUG onMessage labjsd
+ - echo.cpp;31
+2022-3-27 17:26:43 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:43 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:43 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:43 DEBUG poll fd = 6	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:43 DEBUG poll fd = 16	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:44 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:44 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:44 DEBUG fillActiveChannels evennts hhhhhhhhhhhh16 - PollPoller.cpp;73
+2022-3-27 17:26:44 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:44 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:44 DEBUG onMessage calkjsdc
+ - echo.cpp;31
+2022-3-27 17:26:44 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:44 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:44 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:44 DEBUG poll fd = 6	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:44 DEBUG poll fd = 16	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:45 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:45 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:45 DEBUG fillActiveChannels evennts hhhhhhhhhhhh16 - PollPoller.cpp;73
+2022-3-27 17:26:45 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:45 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:45 DEBUG onMessage cmaksdm
+ - echo.cpp;31
+2022-3-27 17:26:45 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:45 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:45 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:45 DEBUG poll fd = 6	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:45 DEBUG poll fd = 16	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:46 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:46 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:46 DEBUG fillActiveChannels evennts hhhhhhhhhhhh16 - PollPoller.cpp;73
+2022-3-27 17:26:46 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:46 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:46 DEBUG handleClose  - TcpConnection.cpp;401
+2022-3-27 17:26:46 DEBUG isInLoopThread 54761AAA54761 - EventLoop.h;75
+2022-3-27 17:26:46 DEBUG handleClose  - TcpConnection.cpp;403
+2022-3-27 17:26:46 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:46 DEBUG updateChannel fd = 16 events = 0 - PollPoller.cpp;85
+2022-3-27 17:26:46 DEBUG updateChannel index = 1 - PollPoller.cpp;86
+2022-3-27 17:26:46 DEBUG onConnection echo server get connected*********************** - echo.cpp;37
+2022-3-27 17:26:46 DEBUG handleClose front closeCallback : 54761 - TcpConnection.cpp;412
+2022-3-27 17:26:46 DEBUG removeConnection front runInLoop : 54761 - TcpServer.cpp;87
+2022-3-27 17:26:46 DEBUG runInLoop in runInLoop : 54761threadId = 54757 - EventLoop.cpp;181
+2022-3-27 17:26:46 DEBUG isInLoopThread 54757AAA54761 - EventLoop.h;75
+2022-3-27 17:26:46 DEBUG runInLoop AAAA - EventLoop.cpp;186
+2022-3-27 17:26:46 DEBUG queueInLoop 54761 - EventLoop.cpp;194
+2022-3-27 17:26:46 DEBUG isInLoopThread 54757AAA54761 - EventLoop.h;75
+2022-3-27 17:26:46 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:46 DEBUG poll fd = 6	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:46 DEBUG poll fd = -17	tid = 54761 - PollPoller.cpp;35
+2022-3-27 17:26:46 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:46 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:46 DEBUG fillActiveChannels evennts hhhhhhhhhhhh4 - PollPoller.cpp;73
+2022-3-27 17:26:46 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:46 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:46 DEBUG removeConnectionInLoop 54757 - TcpServer.cpp;94
+2022-3-27 17:26:46 INFO  TcpServer::removeConnectionInLoop [test] - connection testconnection-1 - TcpServer.cpp;95
+2022-3-27 17:26:46 DEBUG queueInLoop 54757 - EventLoop.cpp;194
+2022-3-27 17:26:46 DEBUG isInLoopThread 54757AAA54757 - EventLoop.h;75
+2022-3-27 17:26:46 DEBUG poll fd = 4	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:46 DEBUG poll fd = 5	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:46 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:46 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:46 DEBUG fillActiveChannels evennts hhhhhhhhhhhh4 - PollPoller.cpp;73
+2022-3-27 17:26:46 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:46 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:46 DEBUG isInLoopThread 54761AAA54757 - EventLoop.h;75
+2022-3-27 17:26:46 ERROR EventLoop::abortNotLoopThread - EventLoop 0x7F0B8CAD4AC0 was created in threadId_ = 54761, current thread id = 54757 - EventLoop.cpp;126
+2022-3-27 17:26:46 DEBUG removeChannel remove fd = 16 - PollPoller.cpp;123
+2022-3-27 17:26:46 DEBUG removeChannel idx = 1 - PollPoller.cpp;133
+2022-3-27 17:26:46 DEBUG ~TcpConnection TcpConnection::dtor[testconnection-1] at 0x13C3090 fd=16 state=kDisconnected - TcpConnection.cpp;57
+2022-3-27 17:26:46 DEBUG ~Channel loop haschannel - Channel.cpp;35
+2022-3-27 17:26:46 DEBUG ~Channel end ~channel - Channel.cpp;38
+2022-3-27 17:26:46 DEBUG poll fd = 4	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:46 DEBUG poll fd = 5	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:50 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:50 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:50 DEBUG fillActiveChannels evennts hhhhhhhhhhhh5 - PollPoller.cpp;73
+2022-3-27 17:26:50 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:50 DEBUG accept connfd = 16 - Socket.cpp;68
+2022-3-27 17:26:50 DEBUG handleRead 16 - Acceptor.cpp;46
+2022-3-27 17:26:50 DEBUG isInLoopThread 54757AAA54757 - EventLoop.h;75
+2022-3-27 17:26:50 DEBUG isInLoopThread 54757AAA54757 - EventLoop.h;75
+2022-3-27 17:26:50 DEBUG Channel new channel - Channel.cpp;26
+2022-3-27 17:26:50 DEBUG TcpConnection TcpConnection::stor[testconnection-2] at0x13C3090 fd=16 - TcpConnection.cpp;49
+2022-3-27 17:26:50 DEBUG runInLoop in runInLoop : 54757threadId = 54762 - EventLoop.cpp;181
+2022-3-27 17:26:50 DEBUG isInLoopThread 54762AAA54757 - EventLoop.h;75
+2022-3-27 17:26:50 DEBUG runInLoop AAAA - EventLoop.cpp;186
+2022-3-27 17:26:50 DEBUG queueInLoop 54757 - EventLoop.cpp;194
+2022-3-27 17:26:50 DEBUG isInLoopThread 54762AAA54757 - EventLoop.h;75
+2022-3-27 17:26:50 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:50 DEBUG poll fd = 4	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:50 DEBUG poll fd = 5	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:50 DEBUG poll numEvents = 1 A 1 - PollPoller.cpp;38
+2022-3-27 17:26:50 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:50 DEBUG fillActiveChannels evennts hhhhhhhhhhhh7 - PollPoller.cpp;73
+2022-3-27 17:26:50 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:50 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:50 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:50 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:50 DEBUG updateChannel fd = 16 events = 1 - PollPoller.cpp;85
+2022-3-27 17:26:50 DEBUG updateChannel index = -1 - PollPoller.cpp;86
+2022-3-27 17:26:50 DEBUG onConnection echo server get connected*********************** - echo.cpp;37
+2022-3-27 17:26:50 DEBUG poll fd = 7	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:50 DEBUG poll fd = 16	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:51 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:51 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:51 DEBUG fillActiveChannels evennts hhhhhhhhhhhh16 - PollPoller.cpp;73
+2022-3-27 17:26:51 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:51 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:51 DEBUG onMessage acd
+ - echo.cpp;31
+2022-3-27 17:26:51 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:51 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:51 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:51 DEBUG poll fd = 7	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:51 DEBUG poll fd = 16	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:51 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:51 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:51 DEBUG fillActiveChannels evennts hhhhhhhhhhhh16 - PollPoller.cpp;73
+2022-3-27 17:26:51 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:51 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:51 DEBUG onMessage ascd
+ - echo.cpp;31
+2022-3-27 17:26:51 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:51 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:51 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:51 DEBUG poll fd = 7	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:51 DEBUG poll fd = 16	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:52 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:52 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:52 DEBUG fillActiveChannels evennts hhhhhhhhhhhh16 - PollPoller.cpp;73
+2022-3-27 17:26:52 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:52 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:52 DEBUG onMessage asdc
+ - echo.cpp;31
+2022-3-27 17:26:52 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:52 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:52 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:52 DEBUG poll fd = 7	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:52 DEBUG poll fd = 16	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:52 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:52 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:52 DEBUG fillActiveChannels evennts hhhhhhhhhhhh16 - PollPoller.cpp;73
+2022-3-27 17:26:52 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:52 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:52 DEBUG handleClose  - TcpConnection.cpp;401
+2022-3-27 17:26:52 DEBUG isInLoopThread 54762AAA54762 - EventLoop.h;75
+2022-3-27 17:26:52 DEBUG handleClose  - TcpConnection.cpp;403
+2022-3-27 17:26:52 DEBUG updateChannel CHANNEL - EventLoop.cpp;142
+2022-3-27 17:26:52 DEBUG updateChannel fd = 16 events = 0 - PollPoller.cpp;85
+2022-3-27 17:26:52 DEBUG updateChannel index = 1 - PollPoller.cpp;86
+2022-3-27 17:26:52 DEBUG onConnection echo server get connected*********************** - echo.cpp;37
+2022-3-27 17:26:52 DEBUG handleClose front closeCallback : 54762 - TcpConnection.cpp;412
+2022-3-27 17:26:52 DEBUG removeConnection front runInLoop : 54762 - TcpServer.cpp;87
+2022-3-27 17:26:52 DEBUG runInLoop in runInLoop : 54762threadId = 54757 - EventLoop.cpp;181
+2022-3-27 17:26:52 DEBUG isInLoopThread 54757AAA54762 - EventLoop.h;75
+2022-3-27 17:26:52 DEBUG runInLoop AAAA - EventLoop.cpp;186
+2022-3-27 17:26:52 DEBUG queueInLoop 54762 - EventLoop.cpp;194
+2022-3-27 17:26:52 DEBUG isInLoopThread 54757AAA54762 - EventLoop.h;75
+2022-3-27 17:26:52 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:52 DEBUG poll fd = 7	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:52 DEBUG poll fd = -17	tid = 54762 - PollPoller.cpp;35
+2022-3-27 17:26:52 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:52 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:52 DEBUG fillActiveChannels evennts hhhhhhhhhhhh4 - PollPoller.cpp;73
+2022-3-27 17:26:52 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:52 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:52 DEBUG removeConnectionInLoop 54757 - TcpServer.cpp;94
+2022-3-27 17:26:52 INFO  TcpServer::removeConnectionInLoop [test] - connection testconnection-2 - TcpServer.cpp;95
+2022-3-27 17:26:52 DEBUG queueInLoop 54757 - EventLoop.cpp;194
+2022-3-27 17:26:52 DEBUG isInLoopThread 54757AAA54757 - EventLoop.h;75
+2022-3-27 17:26:52 DEBUG poll fd = 4	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:52 DEBUG poll fd = 5	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:52 DEBUG poll numEvents = 1 A 2 - PollPoller.cpp;38
+2022-3-27 17:26:52 DEBUG poll 1 events happened - PollPoller.cpp;43
+2022-3-27 17:26:52 DEBUG fillActiveChannels evennts hhhhhhhhhhhh4 - PollPoller.cpp;73
+2022-3-27 17:26:52 DEBUG loop 1 - EventLoop.cpp;101
+2022-3-27 17:26:52 DEBUG loop  - EventLoop.cpp;114
+2022-3-27 17:26:52 DEBUG isInLoopThread 54762AAA54757 - EventLoop.h;75
+2022-3-27 17:26:52 ERROR EventLoop::abortNotLoopThread - EventLoop 0x7F0B8785CAC0 was created in threadId_ = 54762, current thread id = 54757 - EventLoop.cpp;126
+2022-3-27 17:26:52 DEBUG removeChannel remove fd = 16 - PollPoller.cpp;123
+2022-3-27 17:26:52 DEBUG removeChannel idx = 1 - PollPoller.cpp;133
+2022-3-27 17:26:52 DEBUG ~TcpConnection TcpConnection::dtor[testconnection-2] at 0x13C3090 fd=16 state=kDisconnected - TcpConnection.cpp;57
+2022-3-27 17:26:52 DEBUG ~Channel loop haschannel - Channel.cpp;35
+2022-3-27 17:26:52 DEBUG ~Channel end ~channel - Channel.cpp;38
+2022-3-27 17:26:52 DEBUG poll fd = 4	tid = 54757 - PollPoller.cpp;35
+2022-3-27 17:26:52 DEBUG poll fd = 5	tid = 54757 - PollPoller.cpp;35
