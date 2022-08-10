@@ -36,6 +36,7 @@ ssize_t Buffer::readFd(int fd, int * savedErrno)
     else
     {
         writerIndex_ = buffer_.size();
+        LOG_DEBUG << "append " << n-writable;
         append(extrabuf, n - writable);
     }
     // if (n == writable + sizeof extrabuf)

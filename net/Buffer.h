@@ -3,7 +3,7 @@
 // #include "../base/StringPiece.h"
 
 #include "../base/Types.h"
-
+#include "../base/Logging.h"
 #include "Endian.h"
 #include <algorithm>
 #include <vector>
@@ -353,22 +353,57 @@ namespace eff
       string getbuffer()
       {
         string ret;
-        for(auto it : buffer_)
+        for (auto it : buffer_)
         {
-            ret = ret + it;
+          ret = ret + it;
         }
         return ret;
       }
+
+      // void print()
+      // {
+      //   LOG_DEBUG << "?????????????????????????????????????????? buffer_";
+      //   string strs;
+      //   for (auto it = buffer_.begin(); it != buffer_.end(); it++)
+      //   {
+      //     strs = strs + *it;
+      //   }
+      //   LOG_WARN << "strs"         << strs;
+      //   LOG_WARN << "readerindex_" << readerIndex_;
+      //   LOG_WARN << "writerindex_" << writerIndex_;
+      //   LOG_WARN << "the kCRLF" << kCRLF;
+      // }
 
     private:
       char *begin() { return &*buffer_.begin(); }
 
       const char *begin() const { return &*buffer_.begin(); }
 
+      // void makeSpace(size_t len)
+      // {
+      //   if (writableBytes() + prependableBytes() < len + kCheapPrepend)
+      //   {
+      //   }
+      // }
+
       void makeSpace(size_t len)
       {
         if (writableBytes() + prependableBytes() < len + kCheapPrepend)
         {
+          // FIXME: move readable data
+          buffer_.resize(writerIndex_ + len);
+        }
+        else
+        {
+          // move readable data to the front, make space inside buffer
+          assert(kCheapPrepend < readerIndex_);
+          size_t readable = readableBytes();
+          std::copy(begin() + readerIndex_,
+                    begin() + writerIndex_,
+                    begin() + kCheapPrepend);
+          readerIndex_ = kCheapPrepend;
+          writerIndex_ = readerIndex_ + readable;
+          assert(readable == readableBytes());
         }
       }
 
