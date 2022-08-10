@@ -9,25 +9,25 @@ using namespace std;
 using namespace eff;
 using namespace eff::net;
 
-eff::AsyncLogging* g_asyncLog =  NULL;
+// eff::AsyncLogging* g_asyncLog =  NULL;
 
-void asyncOutput(const char* msg, int len)
-{
-  g_asyncLog->append(msg, len);
-}
+// void asyncOutput(const char* msg, int len)
+// {
+//   g_asyncLog->append(msg, len);
+// }
 
 int main()
 {
     int port;
     cin >> port;
 
-    AsyncLogging log("server_test", 500*1000*1000);
-    log.start();
-    g_asyncLog = &log;
+    // AsyncLogging log("server_test", 500*1000*1000);
+    // log.start();
+    // g_asyncLog = &log;
 
-    eff::Logger::setOutput(asyncOutput);
+    // eff::Logger::setOutput(asyncOutput);
 
-    cout << "log start" << endl;
+    // cout << "log start" << endl;
     
     EventLoop loop;
     struct sockaddr_in addr;

@@ -28,6 +28,7 @@ void EchoServer::start()
 void EchoServer::onMessage(const TcpConnectionPtr& ptr, Buffer*buf, Timestamp time)
 {
     std::string str = buf->retrieveAllAsString();
+    LOG_DEBUG << "the message is";
     LOG_DEBUG << str;
     ptr->send(str);
 }
