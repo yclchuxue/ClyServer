@@ -57,6 +57,11 @@ class HttpRequest
             }else{
                 method_ = kInvalid;
             }
+
+            if(method_ == kInvalid){
+                LOG_DEBUG << "method_ == kInvalid";
+            }
+
             return method_ != kInvalid;
         }
 

@@ -13,26 +13,26 @@ using namespace eff::net;
 
 namespace eff
 {
-namespace net
-{
-namespace detail
-{
-void defaultHttpCallback(const HttpRequest&, HttpResponse * resp)
-{
-    resp->setStatusCode(HttpResponse::k404NotFound);
-    resp->setStatusMessage("Not Found");
-    resp->setCloseConnextion(true);
-}
-} //detail
-} //net
-} //eff
+    namespace net
+    {
+        namespace detail
+        {
+            void defaultHttpCallback(const HttpRequest &, HttpResponse *resp)
+            {
+                resp->setStatusCode(HttpResponse::k404NotFound);
+                resp->setStatusMessage("Not Found");
+                resp->setCloseConnextion(true);
+            }
+        } // detail
+    }     // net
+} // eff
 
 HttpServer::HttpServer(EventLoop *loop,
-                        const InetAddress& listenAddr,
-                        const string & name,
-                        TcpServer::Option option)
-    :   server_(loop, listenAddr, name),
-        httpCallback_(detail::defaultHttpCallback)   
+                       const InetAddress &listenAddr,
+                       const string &name,
+                       TcpServer::Option option)
+    : server_(loop, listenAddr, name),
+      httpCallback_(detail::defaultHttpCallback)
 {
     server_.setConnectionCallback(std::bind(&HttpServer::onConnection, this, _1));
     server_.setMessageCallback(std::bind(&HttpServer::onMessage, this, _1, _2, _3));
@@ -43,50 +43,60 @@ void HttpServer::start()
     server_.start();
 }
 
-void HttpServer::onConnection(const TcpConnectionPtr & conn)
+void HttpServer::onConnection(const TcpConnectionPtr &conn)
 {
-    if(conn->connectfd())
+    if (conn->connectfd())
     {
         conn->setContext(HttpContext());
     }
 }
 
-void HttpServer::onMessage(const TcpConnectionPtr& conn,
-                            Buffer * buf,
-                            Timestamp receiveTime)
+void HttpServer::onMessage(const TcpConnectionPtr &conn,
+                           Buffer *buf,
+                           Timestamp receiveTime)
 {
+    LOG_DEBUG << "in onmessage";
     HttpContext *context = conn->getMutableContext();
-
-    if(!context->parseRequest(buf, receiveTime))
+    // buf->print();
+    if (!context->parseRequest(buf, receiveTime))
     {
         conn->send("HTTP/1.1 Bad Request\r\n\r\n");
         conn->shutdown();
     }
-    LOG_DEBUG << "in onmessage";
-    if(context->gotAll())
+
+    if (context->gotAll())
     {
         onRequest(conn, context->request());
         context->reset();
     }
 }
 
-void HttpServer::onRequest(const TcpConnectionPtr& conn, const HttpRequest & req)
+void HttpServer::onRequest(const TcpConnectionPtr &conn, const HttpRequest &req)
 {
-    const string& connection = req.getHeader("Connection");
+    const string &connection = req.getHeader("Connection");
     bool close = connection == "close" || (req.getVersion() == HttpRequest::kHttp10 && connection != "Keep-Alive");
-
+    LOG_WARN << "close is " << close;
     HttpResponse response(close);
-    httpCallback_(req, &response);
+    if(req.method() == HttpRequest::kInvalid){
+        httpCallback_(req, &response);
+    }else{
+        setstatus(req, &response);
+    }
 
     Buffer buf;
     response.appendToBuffer(&buf);
     LOG_DEBUG << "send response";
     LOG_DEBUG << buf.getbuffer();
-    
+
     conn->send(&buf);
-    // if(response.closeConnextion())
-    // {
-    //     conn->shutdown();
-    // }
+    if(response.closeConnextion())
+    {
+        conn->shutdown();
+    }
 }
 
+void HttpServer::setstatus(const HttpRequest &req, HttpResponse *resp)
+{
+    resp->setStatusCode(HttpResponse::k2000k);
+    resp->setStatusMessage("ok");
+}

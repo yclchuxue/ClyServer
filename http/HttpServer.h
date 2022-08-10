@@ -40,6 +40,8 @@ class HttpServer
 
         void onRequest(const TcpConnectionPtr &conn, const HttpRequest &req);
 
+        void setstatus(const HttpRequest &req, HttpResponse *resp);
+
         TcpServer server_;
         HttpCallback httpCallback_;
 };

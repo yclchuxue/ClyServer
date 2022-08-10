@@ -11,12 +11,21 @@ bool HttpContext::processRequestLine(const char *begin, const char * end)
     bool succeed = false;
     const char *start = begin;
     const char *space = std::find(start, end, ' ');
+    LOG_DEBUG << "start process line";
+    if(space == end){
+        LOG_DEBUG << "space == end";
+        string strs(start, end);
+        LOG_DEBUG << "strs" << strs;
+    }
+    
     if(space != end && request_.setMethod(start, space))
     {
+        LOG_DEBUG << "the method had set";
         start = space + 1;
         space = std::find(start, end, ' ');
         if(space != end)
         {
+            LOG_DEBUG << "start set url";
             const char *question = std::find(start, space, '?');
             if(question != space)
             {
@@ -27,6 +36,7 @@ bool HttpContext::processRequestLine(const char *begin, const char * end)
             }
             start = space + 1;
             succeed = end-start == 8 && std::equal(start, end-1, "HTTP/1.");
+            LOG_DEBUG << "equal is " << succeed;
             if(succeed)
             {
                 if(*(end-1) == '1')
@@ -43,6 +53,7 @@ bool HttpContext::processRequestLine(const char *begin, const char * end)
     return succeed;
 }
 
+//解析http报文
 bool HttpContext::parseRequest(Buffer *buf, Timestamp receiveTime)
 {
     bool ok = true;
@@ -52,15 +63,18 @@ bool HttpContext::parseRequest(Buffer *buf, Timestamp receiveTime)
         if(state_ == kExpectRequestLine)
         {
             const char *crlf = buf->findCRLF();
+            LOG_DEBUG << "?????????????????????????????????????????????";
             if(crlf)
             {
                 ok = processRequestLine(buf->peek(), crlf);
+                LOG_WARN << ">>>>>>>>>>>>>>>>>>>>>" << ok;
                 if(ok)
                 {
                     request_.setReceiveTime(receiveTime);
                     buf->retrieveUntil(crlf + 2);
                     state_ = kExpectHeaders;
                 }else{
+                    LOG_WARN << "}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}";
                     hasMore = false;
                 }
             }else{
@@ -87,15 +101,20 @@ bool HttpContext::parseRequest(Buffer *buf, Timestamp receiveTime)
         }
     }
 
-    LOG_DEBUG << request_.method_;
-    LOG_DEBUG << request_.version_;
-    LOG_DEBUG << request_.path_;
-    LOG_DEBUG << request_.query_;
+    std::string str = buf->retrieveAllAsString();
+    LOG_DEBUG << "the message is";
+    LOG_DEBUG << str;
+
+    LOG_DEBUG << "method" << request_.method_;
+    LOG_DEBUG << "version" << request_.version_;
+    LOG_DEBUG << "path" << request_.path_;
+    LOG_DEBUG << "query" << request_.query_;
+    LOG_DEBUG << "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" << ok;
     for(auto it : request_.headers_)
     {
         LOG_DEBUG << it.first << ":\t" << it.second;
     }
 
-
+    LOG_DEBUG << "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" << ok;
     return ok;
 }

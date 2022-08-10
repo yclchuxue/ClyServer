@@ -45,6 +45,10 @@ class HttpResponse
             closeConnection_ = on;
         }
 
+        bool closeConnextion(){
+            return closeConnection_;
+        }
+
         void setContentType(const string & contentType)
         {
             addHeader("Content-Type", contentType);
