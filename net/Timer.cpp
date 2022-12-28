@@ -1,7 +1,7 @@
 #include "Timer.h"
 
-using namespace muduo;
-using namespace muduo::net;
+using namespace eff;
+using namespace eff::net;
 
 AtomicInt64 Timer::s_numCreated_;
 

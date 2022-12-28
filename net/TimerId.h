@@ -1,3 +1,5 @@
+#ifndef NET_TIMERID_H
+#define NET_TIMERID_H
 #include "../base/noncopyable.h"
 #include <stdio.h>
 #include <iostream>
@@ -34,3 +36,5 @@ class TimerId //: public muduo::copyable
 
 }
 }
+
+#endif

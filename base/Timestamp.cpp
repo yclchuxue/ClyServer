@@ -11,14 +11,14 @@ using namespace eff;
 static_assert(sizeof(Timestamp) == sizeof(int64_t),
                         "Timestamp shoud be same size as int64_t");
 
-// std::string Timestamp::toString() const
-// {
-//     char buf[32] = {0};
-//     int64_t seconds = microSecondsSinceEpoch_ / kMicroSecondsPerSecond;
-//     int64_t microseconds = microSecondsSinceEpoch_ % kMicroSecondsPerSecond;
-//     snprintf(buf, sizeof(buf), "%" PRId64 ".%06" PRId64 "", seconds, microseconds);
-//     return buf;
-// }
+std::string Timestamp::toString() const
+{
+    char buf[32] = {0};
+    int64_t seconds = microSecondsSinceEpoch_ / kMicroSecondsPerSecond;
+    int64_t microseconds = microSecondsSinceEpoch_ % kMicroSecondsPerSecond;
+    snprintf(buf, sizeof(buf), "%" PRId64 ".%06" PRId64 "", seconds, microseconds);
+    return buf;
+}
 
 std::string Timestamp::toFormattedString() const
 {
