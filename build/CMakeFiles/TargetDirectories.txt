@@ -1,3 +1,0 @@
-/home/yclchuxue/Desktop/WebServer/build/CMakeFiles/rebuild_cache.dir
-/home/yclchuxue/Desktop/WebServer/build/CMakeFiles/edit_cache.dir
-/home/yclchuxue/Desktop/WebServer/build/CMakeFiles/server_test.dir
